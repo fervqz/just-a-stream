@@ -262,10 +262,10 @@ woofsStream.subscribe(event => console.log(event));
 
 // Output:
 // dogs say: first_woof
-// dogs say: first_woof first_woof
-// dogs say: first_woof first_woof first_woof
-// dogs say: first_woof first_woof first_woof first_woof
-// dogs say: first_woof first_woof first_woof first_woof first_woof
+// dogs say: first_woof woof
+// dogs say: first_woof woof woof
+// dogs say: first_woof woof woof woof
+// dogs say: first_woof woof woof woof woof
 // ...
 ```
 
