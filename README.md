@@ -1,5 +1,36 @@
 # @fervqz/just-a-stream
 
+A extremly light weight js libreary for creating, transforming and merging streams.
+
+[LIVE DEMO](https://stackblitz.com/edit/vitejs-vite-dy1tvp?file=main.js&terminal=dev)
+
+### Examples:
+Move an element with arrow keys:
+```typescript
+
+const movementKeys = [
+  'ArrowUp',
+  'ArrowDown',
+  'ArrowLeft',
+  'ArrowRight',
+];
+
+const keyStrokes = new JAStream((next) => {
+  document.addEventListener('keydown', next);
+});
+
+const arrowStrokes = keyStrokes
+  .filter((eventKey) => movementKeys.includes(eventKey.code))
+  .map((eventKey) => eventKey.code);
+
+arrowStrokes.subscribe((arrowCode) => {
+  console.log(arrowCode); // ArrowUp | ArrowDown | ArrowLeft | ArrowRight
+  // Movement logic...
+});
+
+
+```
+
 ## Creating a Stream
 
 You can create a stream by instantiating a new `JAStream` object or by using the `JAStream.from()` method.
