@@ -455,5 +455,3 @@ type Mapper<T, U> = (value: T) => U;
  */
 type Reducer<T, U> = (accumulator: U, currentValue: T) => U;
 ```
-
-This Markdown document provides usage examples for creating streams, subscribing to streams, transforming streams with `filter`, `map`, and `reduce`, combining streams with `merge`, and getting the last value of a stream.
