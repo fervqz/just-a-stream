@@ -4,7 +4,7 @@ A extremly light weight js library for creating, transforming and merging stream
 
 [LIVE DEMO](https://stackblitz.com/edit/vitejs-vite-dy1tvp?file=main.js&terminal=dev)
 
-### Installation
+## Installation
 
 **Via CDN:**
 ```html
@@ -23,7 +23,7 @@ bun install @fervqz/just-a-stream
 ```
 
 
-### Examples:
+## Examples:
 Move an element with arrow keys:
 ```typescript
 
