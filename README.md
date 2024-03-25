@@ -91,10 +91,10 @@ stream.subscribe(barked);
 // Barked 5 times!
 ```
 
-### Strating a Stream with a initial value
+### Strating a Stream with an initial value
 To set the initial value of a stream, you can either:
-- Setting the initial value of accumulation with the reduce function **will not trigger** the listener function the initial value.
-- Merging two streams, an initial stream with the offset value and the future values stream **will trigger** the listener function.
+- Set the initial value of accumulation with the reduce function, this **will not trigger** the listener function for initial value.
+- Merge two streams, an initial stream with the offset value and the future values stream, this **will trigger** the listener function for the initial value.
 
 Initial value with `reduce()`:
 ```typescript
@@ -195,7 +195,20 @@ randomNumberStream.subscribe((event) => {
 ## Transforming Streams
 You can transform streams using methods like `filter`, `map`, and `reduce`.
 
-### Filtering JAStream
+### Filtering Stream
+
+Filters values in the stream based on a predicate function.
+
+```typescript
+filter(pred: Predicate<T>): JAStream<T>
+```
+
+- `params`:
+  - `pred: Predicate<T>`:  [Predicate](#section-types) function to filter values.
+- `return`:
+  - `JAStream<T>`:  New [JAStream](#section-types) with filtered values.
+
+<br/>
 
 ```typescript
 const stream = JAStream.from([1, 2, 3, 4, 5]);
@@ -247,6 +260,18 @@ evenNumbersStream.subscribe((e) => console.log(`even: ${e}`));
 ```
 
 ### Mapping Stream
+Maps values in the stream to a different type using a mapper function.
+
+```typescript
+map<U>(mapFn: Mapper<T, U>): JAStream<U> 
+```
+
+- `params`:
+  - `mapFn: Mapper<T, U>`:  [Mapper](#section-types) function to transform values.
+- `return`:
+  - `JAStream<U>`:  New [JAStream](#section-types) with mapped values.
+
+<br/>
 
 ```typescript
 const disrtyDogsStream = JAStream.from([
@@ -295,6 +320,20 @@ cleanDogsStream.subscribe((dog) => console.log(dog));
 ```
 
 ### Reducing Stream
+Reduces values in the stream to a single value using a reducer function.
+
+```typescript
+reduce<U>(fn: Reducer<T, U>, initialValue: U): JAStream<U>
+```
+
+- `params`:
+  - `fn: Reducer<T, U>`:  Reducer function to accumulate values.
+  - `initialValue: {U}`:  Initial value for the accumulator.
+- `return`:
+  - `Stream<U>`: New [JAStream](#section-types) with the reduced value.
+
+<br/>
+
 ```typescript
 const initialValue = JAStream.from(['frist_woof']);
 
@@ -320,7 +359,18 @@ woofsStream.subscribe(event => console.log(event));
 ```
 
 ## Combining Streams
-You can combine multiple streams using the merge method.
+Merges multiple streams into a single stream.
+
+```typescript
+JAStream.merge = <T>(...streams: JAStream<T>[]): JAStream<T>
+```
+
+- `params`:
+  - `streams: {...JAStream<T>[]}`:  Streams to merge.
+- `return`:
+  - `JAStream<T>`: New [JSAtream](#section-types) with values from all input streams.
+
+<br/>
 
 ```typescript
 const keysDownStream = new JAStream((next) => {
@@ -344,9 +394,18 @@ keysClickStream.subscribe(event => {
 // You are either clicking or typing
 ```
 ## Getting the Last Value
-You can get the last emitted value of a stream using the getLast method.
+Gets the last emitted value in the stream.
 <br/>
-**IMPORTANT:** You must subscribe to the stream first in order to use `.getLast()`.
+**IMPORTANT:** You must subscribe to the stream before calling `.getLast()`.
+
+```typescript
+JAStream.from = <T>(xs: T[]): JAStream<T>
+```
+
+- `return`
+  - `T | undefined`:  The last emitted value, or undefined if no value has been emitted yet.
+
+<br/>
 
 ```typescript
 const stream = JAStream.from([
@@ -367,6 +426,34 @@ const lastDog = stream.getLast();
 console.log(lastDog);
 // Output:
 // fifth dog
+```
+
+## <a id="section-types"></a>TypeScript Types
+```typescript
+/**
+ * Represents a function that emits values overt time.
+ */
+type DataGenerator<T> = (listener: Listener<T>) => void;
+
+/**
+ * Represents a function that listens for emitted values.
+ */
+type Listener<T> = (value: T) => void;
+
+/**
+ * Represents a predicate function to filter values.
+ */
+type Predicate<T> = (value: T) => boolean;
+
+/**
+ * Represents a mapper function to transform values.
+ */
+type Mapper<T, U> = (value: T) => U;
+
+/**
+ * Represents a reducer function to reduce values.
+ */
+type Reducer<T, U> = (accumulator: U, currentValue: T) => U;
 ```
 
 This Markdown document provides usage examples for creating streams, subscribing to streams, transforming streams with `filter`, `map`, and `reduce`, combining streams with `merge`, and getting the last value of a stream.
