@@ -4,6 +4,25 @@ A extremly light weight js libreary for creating, transforming and merging strea
 
 [LIVE DEMO](https://stackblitz.com/edit/vitejs-vite-dy1tvp?file=main.js&terminal=dev)
 
+### Installation
+
+**Via CDN:**
+```html
+<script src="TODO:HERE_COMES_THE_CDN_URL"></script>
+```
+
+**Via package manager:**
+```sh
+npm install @fervqz/just-a-stream
+# or
+yarn install @fervqz/just-a-stream
+# or
+pnpm install @fervqz/just-a-stream
+# or
+bun install @fervqz/just-a-stream
+```
+
+
 ### Examples:
 Move an element with arrow keys:
 ```typescript
