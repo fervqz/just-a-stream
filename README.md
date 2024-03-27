@@ -2,7 +2,7 @@
 
 A light weight js library for creating, transforming and merging streams.
 
-**[LIVE DEMO](https://stackblitz.com/edit/vitejs-vite-dy1tvp?file=main.js&terminal=dev)**
+<a href="https://stackblitz.com/edit/vitejs-vite-dy1tvp?file=main.js&terminal=dev" target="_blank"><b>LIVE DEMO</b></a>
 
 ## Installation
 
