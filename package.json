@@ -1,0 +1,37 @@
+{
+    "name": "@fervqz/just-a-stream",
+    "author": "fervqz",
+    "description": "A light weight js library for creating, transforming and merging streams.",
+    "version": "1.0.0",
+    "license": "MIT",
+    "homepage": "https://github.com/fervqz/just-a-stream",
+    "repository": {
+        "url": "https://github.com/fervqz/just-a-stream"
+    },
+    "keywords": [
+        "stream",
+        "streams",
+        "async",
+        "data",
+        "flow",
+        "event-driven",
+        "non-blocking",
+        "buffer",
+        "pipeline",
+        "transform"
+    ],
+    "main": "dist/index.js",
+    "module": "dist/index.mjs",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "tsup src/index.ts --format cjs,esm --dts"
+    },
+    "devDependencies": {
+        "typescript": "^5.4.3",
+        "tsup": "^8.0.2"
+    },
+    "engines": {
+        "node": ">=14.17"
+    },
+    "packageManager": "pnpm@8.15.5"
+}
