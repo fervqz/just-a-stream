@@ -7,6 +7,9 @@ A light weight js library for creating, transforming and merging streams.
 ## Installation
 
 **Via CDN:**
+
+> [!IMPORTANT]
+> CDN importing is not yet supported, feature is comming soon.
 ```html
 <script src="TODO:HERE_COMES_THE_CDN_URL"></script>
 ```
