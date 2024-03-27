@@ -402,7 +402,7 @@ Gets the last emitted value in the stream.
 **IMPORTANT:** You must subscribe to the stream before calling `.getLast()`.
 
 ```typescript
-JAStream.from = <T>(xs: T[]): JAStream<T>
+getLast(): T | undefined
 ```
 
 - `return`
@@ -429,6 +429,55 @@ const lastDog = stream.getLast();
 console.log(lastDog);
 // Output:
 // fifth dog
+```
+
+## Getting Buffered Values (BETA)
+Gets the buffer values for the last 10 elements.
+
+```typescript
+getBuffer(): T[]
+```
+
+- `return`
+  - `T[]`:  The last 10 emitted value, or [] if no value has been emitted yet.
+
+<br/>
+
+```typescript
+const stream = JAStream.from([
+    'first dog',
+    'second dog',
+    'third dog',
+    'fourth dog',
+    'fifth dog',
+    'sixth dog',
+    'seventh dog',
+    'eighth dog',
+    'ninth dog',
+    'tenth dog',
+    'elventh dog',
+    'twelfth dog',
+
+]);
+
+// You must subscribe to the stream first
+stream.subscribe(() => {
+    // ...
+});
+const buffer = stream.getBuffer();
+
+console.log(buffer);
+// Output:
+// third dog
+// fourth dog
+// fifth dog
+// sixth dog
+// seventh dog
+// eighth dog
+// ninth dog
+// tenth dog
+// elventh dog
+// twelfth dog
 ```
 
 ## <a id="section-types"></a>TypeScript Types

@@ -30,6 +30,7 @@ export class JAStream<T> {
 
     generator: DataGenerator<T>; // Function that generates values
     last: T | undefined = undefined; // Last emitted value in the stream
+    buffer: T[] = [];
 
     /**
      * Creates an instance of Stream with the provided generator function.
@@ -47,7 +48,9 @@ export class JAStream<T> {
     subscribe(listener: Listener<T>): void {
         this.generator((x: T) => {
             this.last = x;
-            listener(x);
+            this.buffer.push(x)
+            this.buffer = this.buffer.slice(0, 10);
+            listener(x)
         });
     }
 
@@ -116,6 +119,15 @@ export class JAStream<T> {
      */
     getLast(): T | undefined {
         return this.last;
+    }
+
+    /**
+     * (BETA)
+     * Gets the buffer values for the last 10 elements.
+     * @returns {T[]} The last 10 emitted value, or [] if no value has been emitted yet.
+     */
+    getBuffer(): T[] {
+        return this.buffer;
     }
 }
 
