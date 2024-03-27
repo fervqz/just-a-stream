@@ -1,6 +1,6 @@
 # @fervqz/just-a-stream
 
-A extremly light weight js library for creating, transforming and merging streams.
+A light weight js library for creating, transforming and merging streams.
 
 **[LIVE DEMO](https://stackblitz.com/edit/vitejs-vite-dy1tvp?file=main.js&terminal=dev)**
 
