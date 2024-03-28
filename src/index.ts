@@ -23,7 +23,9 @@ export type Mapper<T, U> = (value: T) => U;
  */
 export type Reducer<T, U> = (accumulator: U, currentValue: T) => U;
 
-
+/**
+ * Represents the options that can be passed to the JAStream class.
+ */
 export interface JAStreamOptions {
     useBuffer: boolean;
     bufferSize: number;
@@ -37,9 +39,9 @@ export class JAStream<T> {
     generator: DataGenerator<T>; // Function that generates values
     last: T | undefined = undefined; // Last emitted value in the stream
 
-    useBuffer: boolean = false;
-    buffer: T[] = [];
-    bufferSize: number = 1;
+    useBuffer: boolean = false; // Can use getBuffer() when true.
+    buffer: T[] = []; // Array of emitted events
+    bufferSize: number = 1; // Define the maximum size of the buffer.
 
     /**
      * Creates an instance of Stream with the provided generator function.
@@ -138,7 +140,6 @@ export class JAStream<T> {
     }
 
     /**
-     * (BETA)
      * Gets the buffer values for the last 10 elements.
      * @returns {T[]} The last 10 emitted value, or [] if no value has been emitted yet.
      */
