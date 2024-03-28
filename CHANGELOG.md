@@ -1,5 +1,11 @@
 # @fervqz/just-a-stream
 
+## 2.0.0
+
+### Major Changes
+
+- 9f1d133: Changing package API and adding optional options object.
+
 ## 0.1.0
 
 ### Minor Changes
