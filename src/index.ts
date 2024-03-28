@@ -115,23 +115,6 @@ export class JAStream<T> {
     }
 
     /**
-     * Combines this stream with another stream and emits a tuple of the latest values from both streams.
-     * @param {JAStream<U>} otherStream The other stream to combine with.
-     * @returns {JAStream<[T | undefined, U]>} New stream with combined values.
-     */
-    withLatestFrom<U>(otherStream: JAStream<U>): JAStream<[T | undefined, U]> {
-        return new JAStream<[T | undefined, U]>((next: Listener<[T | undefined, U]>) => {
-            let latest: U;
-            otherStream.subscribe((x: U) => {
-                latest = x;
-            });
-            this.generator((y: T) => {
-                next([this.last, latest]);
-            });
-        });
-    }
-
-    /**
      * Gets the last emitted value in the stream.
      * @returns {T | undefined} The last emitted value, or undefined if no value has been emitted yet.
      */
