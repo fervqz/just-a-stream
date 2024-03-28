@@ -2,11 +2,17 @@
     "name": "@fervqz/just-a-stream",
     "author": "fervqz",
     "description": "A light weight js library for creating, transforming and merging streams.",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "license": "MIT",
     "homepage": "https://github.com/fervqz/just-a-stream",
     "repository": {
         "url": "git+https://github.com/fervqz/just-a-stream.git"
+    },
+    "scripts": {
+        "update": "pnpm changeset",
+        "build": "tsup src/index.ts --format cjs,esm --dts",
+        "lint": "tsc",
+        "test": "jest"
     },
     "keywords": [
         "stream",
@@ -20,16 +26,24 @@
         "pipeline",
         "transform"
     ],
+    "files": [
+        "dist",
+        "LICENSE.txt",
+        "package.json",
+        "README.md"
+    ],
+    "jest": {
+        "transform": {
+            "^.+\\.jsx?$": "babel-jest",
+            "^.+\\.tsx?$": "ts-jest"
+        }
+    },
     "main": "dist/index.js",
     "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
-    "scripts": {
-        "update": "pnpm changeset",
-        "build": "tsup src/index.ts --format cjs,esm --dts",
-        "lint": "tsc"
-    },
     "devDependencies": {
         "@changesets/cli": "^2.27.1",
+        "jest": "^29.7.0",
         "tsup": "^8.0.2",
         "typescript": "^5.4.3"
     },
@@ -45,5 +59,8 @@
             "name": "Fervqz",
             "url": "https://github.com/fervqz"
         }
-    ]
+    ],
+    "dependencies": {
+        "ts-jest": "^29.1.2"
+    }
 }

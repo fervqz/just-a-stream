@@ -24,20 +24,36 @@ export type Mapper<T, U> = (value: T) => U;
 export type Reducer<T, U> = (accumulator: U, currentValue: T) => U;
 
 /**
+ * Represents the options that can be passed to the JAStream class.
+ */
+export interface JAStreamOptions {
+    useBuffer: boolean;
+    bufferSize: number;
+}
+
+/**
  * Represents a stream of values.
  */
 export class JAStream<T> {
 
     generator: DataGenerator<T>; // Function that generates values
     last: T | undefined = undefined; // Last emitted value in the stream
-    buffer: T[] = [];
+
+    useBuffer: boolean = false; // Can use getBuffer() when true.
+    buffer: T[] = []; // Array of emitted events
+    bufferSize: number = 1; // Define the maximum size of the buffer.
 
     /**
      * Creates an instance of Stream with the provided generator function.
      * @param {Function} generator Function that generates values for the stream.
      */
-    constructor(generator: DataGenerator<T>) {
+    constructor(generator: DataGenerator<T>, options?: JAStreamOptions) {
         this.generator = generator;
+
+        if (options) {
+            this.useBuffer = options.useBuffer;
+            this.bufferSize = options.bufferSize;
+        }
     }
 
     /**
@@ -48,9 +64,11 @@ export class JAStream<T> {
     subscribe(listener: Listener<T>): void {
         this.generator((x: T) => {
             this.last = x;
-            this.buffer.push(x)
-            this.buffer = this.buffer.slice(0, 10);
-            listener(x)
+            if (this.useBuffer) {
+                this.buffer.push(x);
+                this.buffer = this.buffer.slice(this.bufferSize * -1);
+            }
+            listener(x);
         });
     }
 
@@ -97,23 +115,6 @@ export class JAStream<T> {
     }
 
     /**
-     * Combines this stream with another stream and emits a tuple of the latest values from both streams.
-     * @param {JAStream<U>} otherStream The other stream to combine with.
-     * @returns {JAStream<[T | undefined, U]>} New stream with combined values.
-     */
-    withLatestFrom<U>(otherStream: JAStream<U>): JAStream<[T | undefined, U]> {
-        return new JAStream<[T | undefined, U]>((next: Listener<[T | undefined, U]>) => {
-            let latest: U;
-            otherStream.subscribe((x: U) => {
-                latest = x;
-            });
-            this.generator((y: T) => {
-                next([this.last, latest]);
-            });
-        });
-    }
-
-    /**
      * Gets the last emitted value in the stream.
      * @returns {T | undefined} The last emitted value, or undefined if no value has been emitted yet.
      */
@@ -122,12 +123,14 @@ export class JAStream<T> {
     }
 
     /**
-     * (BETA)
      * Gets the buffer values for the last 10 elements.
      * @returns {T[]} The last 10 emitted value, or [] if no value has been emitted yet.
      */
     getBuffer(): T[] {
-        return this.buffer;
+        if (this.useBuffer) {
+            return this.buffer;
+        }
+        throw new Error("In order to use buffer you must specify it on the JAStreamOptions as useBuffer=boolean and bufferSize=number");
     }
 }
 

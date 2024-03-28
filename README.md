@@ -14,7 +14,7 @@ A light weight js library for creating, transforming and merging streams.
 <script src="TODO:HERE_COMES_THE_CDN_URL"></script>
 ```
 
-**Via package manager:**
+### Via package manager:
 ```sh
 npm install @fervqz/just-a-stream
 # or
@@ -25,10 +25,18 @@ pnpm install @fervqz/just-a-stream
 bun install @fervqz/just-a-stream
 ```
 
+### Import:
+```typescript
+import { JAStream } from '@fervqz/just-a-stream';
+// or
+const { JAStream } = require('@fervqz/just-a-stream');
+```
+
 
 ## Examples:
 Move an element with arrow keys:
 ```typescript
+import { JAStream } from '@fervqz/just-a-stream';
 
 const movementKeys = [
   'ArrowUp',
@@ -60,7 +68,20 @@ You can create a stream by instantiating a new `JAStream` object or by using the
 ### Using `new JAStream()`
 Creates a stream of values of undefined length that will be received over time.
 
+- `params`:
+  - `generator: DataGenerator<T>`:  A [DataGenerator](#section-types) function. This is the value emitter.
+  - `options?: JAStreamOptions`:  [JAStreamOptions](#section-types) options object for defining stream properties.
+- `return`:
+  - `JAStream<U>`:  New [JAStream](#section-types).
+
+
 ```typescript
+constructor(generator: DataGenerator<T>, options?: JAStreamOptions)
+```
+
+```typescript
+import { JAStream } from '@fervqz/just-a-stream';
+
 // Bark every second
 const bark = () => console.log('woof!');
 
@@ -80,6 +101,8 @@ stream.subscribe(bark);
 Creates a stream of defined values to be able to transform the data with the JAStream methods.
 
 ```typescript
+import { JAStream } from '@fervqz/just-a-stream';
+
 // Times barked
 const barked = (event) => console.log(`Barked ${event} times!`);
 
@@ -101,6 +124,7 @@ To set the initial value of a stream, you can either:
 
 Initial value with `reduce()`:
 ```typescript
+import { JAStream } from '@fervqz/just-a-stream';
 
 const INITIAL_VALUE = 'P';
 
@@ -128,6 +152,8 @@ accSecondsStream.subscribe(event => console.log(`${event}`));
 
 Offset initial value with initial stream merge:
 ```typescript
+import { JAStream } from '@fervqz/just-a-stream';
+
 // Initial offset, starting from P
 const initialValue = JAStream.from(['P']);
 
@@ -158,6 +184,8 @@ accumulatedSecondsStream.subscribe(event => console.log(`${event}`));
 Once you have a stream, you can subscribe to it to listen for emitted values.
 
 ```typescript
+import { JAStream } from '@fervqz/just-a-stream';
+
 const stream = JAStream.from([1, 2, 3, 4, 5]);
 
 stream.subscribe((event) => {
@@ -174,6 +202,8 @@ stream.subscribe((event) => {
 ```
 
 ```typescript
+import { JAStream } from '@fervqz/just-a-stream';
+
 const randomNumberStream = new JAStream((next) => {
     setInterval(() => {
         // Random number between 0-9
@@ -214,6 +244,8 @@ filter(pred: Predicate<T>): JAStream<T>
 <br/>
 
 ```typescript
+import { JAStream } from '@fervqz/just-a-stream';
+
 const stream = JAStream.from([1, 2, 3, 4, 5]);
 
 const isOdd = (value) => (value % 2) > 0;
@@ -234,6 +266,8 @@ evenNumbersStream.subscribe((e) => console.log(`even: ${e}`));
 ```
 
 ```typescript
+import { JAStream } from '@fervqz/just-a-stream';
+
 const stream = new JAStream((next) => {
 
     let counter = 0;
@@ -277,6 +311,8 @@ map<U>(mapFn: Mapper<T, U>): JAStream<U>
 <br/>
 
 ```typescript
+import { JAStream } from '@fervqz/just-a-stream';
+
 const disrtyDogsStream = JAStream.from([
     'dirty dog 1',
     'dirty dog 2',
@@ -299,6 +335,8 @@ cleanDogsStream.subscribe((dog) => console.log(dog));
 ```
 
 ```typescript
+import { JAStream } from '@fervqz/just-a-stream';
+
 // Random dirty and cleaned dogs
 const dirtyCleanDogsStream = new JAStream((next) => {
 
@@ -338,6 +376,8 @@ reduce<U>(fn: Reducer<T, U>, initialValue: U): JAStream<U>
 <br/>
 
 ```typescript
+import { JAStream } from '@fervqz/just-a-stream';
+
 const initialValue = JAStream.from(['frist_woof']);
 
 const stream = new JAStream((next) => {
@@ -376,6 +416,8 @@ JAStream.merge = <T>(...streams: JAStream<T>[]): JAStream<T>
 <br/>
 
 ```typescript
+import { JAStream } from '@fervqz/just-a-stream';
+
 const keysDownStream = new JAStream((next) => {
     document.addEventListener("keydown", next)
 });
@@ -411,6 +453,8 @@ getLast(): T | undefined
 <br/>
 
 ```typescript
+import { JAStream } from '@fervqz/just-a-stream';
+
 const stream = JAStream.from([
     'first dog',
     'second dog',
@@ -431,56 +475,81 @@ console.log(lastDog);
 // fifth dog
 ```
 
-## Getting Buffered Values (BETA)
-Gets the buffer values for the last 10 elements.
+## Getting Buffered Values
+Gets the buffer values for the last N elements or all values emitted.
+Usages of buffer must be specified in the options object when creating the stream:
+
+Setting usage of buffer:
+
+```typescript
+import { JAStream } from '@fervqz/just-a-stream';
+
+const generator = (next) => {...}
+
+const options = {
+  useBuffer: true,
+  bufferSize: 10, // default value = 1
+}
+
+const stream = new JAStream(generator, options)
+```
+
+<br/>
+
+Using buffer:
 
 ```typescript
 getBuffer(): T[]
 ```
 
 - `return`
-  - `T[]`:  The last 10 emitted value, or [] if no value has been emitted yet.
+  - `T[]`:  The last emitted values, or [] if no value has been emitted yet.
 
 <br/>
 
 ```typescript
-const stream = JAStream.from([
-    'first dog',
-    'second dog',
-    'third dog',
-    'fourth dog',
-    'fifth dog',
-    'sixth dog',
-    'seventh dog',
-    'eighth dog',
-    'ninth dog',
-    'tenth dog',
-    'elventh dog',
-    'twelfth dog',
+import { JAStream } from '@fervqz/just-a-stream';
 
-]);
+const generator = next => {
+    setInterval(() => next((Math.random() * 10).toFixed()), 1000);
+};
 
-// You must subscribe to the stream first
-stream.subscribe(() => {
-    // ...
+const options = {
+    useBuffer: true,
+    bufferSize: 3,
+}
+const stream = new JAStream(generator, options);
+
+stream.subscribe(event => {
+    console.log(event, ' - ', stream.getBuffer());
 });
-const buffer = stream.getBuffer();
 
-console.log(buffer);
 // Output:
-// third dog
-// fourth dog
-// fifth dog
-// sixth dog
-// seventh dog
-// eighth dog
-// ninth dog
-// tenth dog
-// elventh dog
-// twelfth dog
+// 2 - [2]
+// 4 - [2, 4]
+// 1 - [2, 4, 1]
+// 5 - [4, 1, 5]
+// 5 - [1, 5, 5]
 ```
 
 ## <a id="section-types"></a>TypeScript Types
+
+### JAStreamOptions
+- **useBuffer:** Default value `false`. You can use `getBuffer()` when `true`.
+- **bufferSize:** Maximum number of elements to store. If not setted the default value is `1`.
+```typescript
+/**
+ * Represents the options that can be passed to the JAStream class.
+ */
+export interface JAStreamOptions {
+    useBuffer: boolean;
+    bufferSize: number;
+}
+```
+
+<br/>
+
+### Other Types
 ```typescript
 /**
  * Represents a function that emits values overt time.
