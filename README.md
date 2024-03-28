@@ -8,10 +8,12 @@ A light weight js library for creating, transforming and merging streams.
 
 **Via CDN:**
 
-> [!IMPORTANT]
-> CDN importing is not yet supported, feature is comming soon.
 ```html
-<script src="TODO:HERE_COMES_THE_CDN_URL"></script>
+<!-- Source script -->
+<script src="https://cdn.jsdelivr.net/npm/@fervqz/just-a-stream@1.0.0/dist/index.js"></script>
+
+<!-- TypeScript Types -->
+<script src="https://cdn.jsdelivr.net/npm/@fervqz/just-a-stream@1.0.0/dist/index.d.ts"></script>
 ```
 
 ### Via package manager:
