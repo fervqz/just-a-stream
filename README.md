@@ -14,7 +14,7 @@ A light weight js library for creating, transforming and merging streams.
 <script src="TODO:HERE_COMES_THE_CDN_URL"></script>
 ```
 
-**Via package manager:**
+### Via package manager:
 ```sh
 npm install @fervqz/just-a-stream
 # or
@@ -23,6 +23,13 @@ yarn install @fervqz/just-a-stream
 pnpm install @fervqz/just-a-stream
 # or
 bun install @fervqz/just-a-stream
+```
+
+### Import:
+```typescript
+import { JAStream } from '@fervqz/just-a-stream';
+// or
+const { JAStream } = require('@fervqz/just-a-stream');
 ```
 
 
