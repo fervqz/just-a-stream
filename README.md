@@ -1,5 +1,16 @@
 # @fervqz/just-a-stream
 
+<img src="./docs/assets/Cover.webp" alt="Just a Stream cover image." />
+
+<p align="center">
+ <a href="https://www.npmjs.org/package/@fervqz/just-a-stream">
+    <img src="https://img.shields.io/npm/v/@fervqz/just-a-stream/latest.svg" alt="NPM Version" />
+  </a>
+  <a href="https://github.com/fervqz/just-a-stream/actions/workflows/main.yml">
+    <img src="https://github.com/fervqz/just-a-stream/actions/workflows/main.yml/badge.svg?branch=main" alt="Build" />
+  </a>
+<p>
+
 A light weight js library for creating, transforming and merging streams.
 
 <a href="https://stackblitz.com/edit/vitejs-vite-dy1tvp?file=main.js&terminal=dev" target="_blank"><b>LIVE DEMO</b></a>
@@ -234,7 +245,7 @@ You can transform streams using methods like `filter`, `map`, and `reduce`.
 
 Filters values in the stream based on a predicate function.
 
-<img src="./docs/assets/Filter.webp">
+<img src="./docs/assets/Filter.webp" alt="Diagram showing how the filter method works.">
 
 <br/>
 
@@ -305,7 +316,7 @@ evenNumbersStream.subscribe((e) => console.log(`even: ${e}`));
 ### Mapping Stream
 Maps values in the stream to a different type using a mapper function.
 
-<img src="./docs/assets/Map.webp">
+<img src="./docs/assets/Map.webp" alt="Diagram showing how the map method works.">
 
 <br/>
 
@@ -373,7 +384,7 @@ cleanDogsStream.subscribe((dog) => console.log(dog));
 ### Reducing Stream
 Reduces values in the stream to a single value using a reducer function.
 
-<img src="./docs/assets/Reduce.webp">
+<img src="./docs/assets/Reduce.webp" alt="Diagram showing how the reduce method works.">
 
 <br/>
 
@@ -418,7 +429,7 @@ woofsStream.subscribe(event => console.log(event));
 ## Combining Streams
 Merges multiple streams into a single stream.
 
-<img src="./docs/assets/Merge.webp">
+<img src="./docs/assets/Merge.webp" alt="Diagram showing how the merge method works.">
 
 <br/>
 
@@ -461,7 +472,7 @@ Gets the last emitted value in the stream.
 <br/>
 **IMPORTANT:** You must subscribe to the stream before calling `.getLast()`.
 
-<img src="./docs/assets/GetLast.webp">
+<img src="./docs/assets/GetLast.webp" alt="Diagram showing how the get last method works.">
 
 <br/>
 
@@ -501,7 +512,7 @@ console.log(lastDog);
 Gets the buffer values for the last N elements or all values emitted.
 Usages of buffer must be specified in the options object when creating the stream:
 
-<img src="./docs/assets/GetBuffer.webp">
+<img src="./docs/assets/GetBuffer.webp" alt="Diagram showing how the get buffer method works.">
 
 <br/>
 
