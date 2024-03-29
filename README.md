@@ -501,7 +501,7 @@ console.log(lastDog);
 Gets the buffer values for the last N elements or all values emitted.
 Usages of buffer must be specified in the options object when creating the stream:
 
-<img src="./docs/assets/Getbuffer.webp">
+<img src="./docs/assets/GetBuffer.webp">
 
 <br/>
 
