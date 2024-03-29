@@ -2,7 +2,7 @@
     "name": "@fervqz/just-a-stream",
     "author": "fervqz",
     "description": "A light weight js library for creating, transforming and merging streams.",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "license": "MIT",
     "homepage": "https://github.com/fervqz/just-a-stream",
     "repository": {
