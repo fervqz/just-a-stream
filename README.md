@@ -234,6 +234,10 @@ You can transform streams using methods like `filter`, `map`, and `reduce`.
 
 Filters values in the stream based on a predicate function.
 
+<img src="./docs/assets/Filter.webp">
+
+<br/>
+
 ```typescript
 filter(pred: Predicate<T>): JAStream<T>
 ```
@@ -301,6 +305,10 @@ evenNumbersStream.subscribe((e) => console.log(`even: ${e}`));
 ### Mapping Stream
 Maps values in the stream to a different type using a mapper function.
 
+<img src="./docs/assets/Map.webp">
+
+<br/>
+
 ```typescript
 map<U>(mapFn: Mapper<T, U>): JAStream<U> 
 ```
@@ -365,6 +373,10 @@ cleanDogsStream.subscribe((dog) => console.log(dog));
 ### Reducing Stream
 Reduces values in the stream to a single value using a reducer function.
 
+<img src="./docs/assets/Reduce.webp">
+
+<br/>
+
 ```typescript
 reduce<U>(fn: Reducer<T, U>, initialValue: U): JAStream<U>
 ```
@@ -406,6 +418,10 @@ woofsStream.subscribe(event => console.log(event));
 ## Combining Streams
 Merges multiple streams into a single stream.
 
+<img src="./docs/assets/Merge.webp">
+
+<br/>
+
 ```typescript
 JAStream.merge = <T>(...streams: JAStream<T>[]): JAStream<T>
 ```
@@ -445,6 +461,10 @@ Gets the last emitted value in the stream.
 <br/>
 **IMPORTANT:** You must subscribe to the stream before calling `.getLast()`.
 
+<img src="./docs/assets/GetLast.webp">
+
+<br/>
+
 ```typescript
 getLast(): T | undefined
 ```
@@ -480,6 +500,10 @@ console.log(lastDog);
 ## Getting Buffered Values
 Gets the buffer values for the last N elements or all values emitted.
 Usages of buffer must be specified in the options object when creating the stream:
+
+<img src="./docs/assets/Getbuffer.webp">
+
+<br/>
 
 Setting usage of buffer:
 
